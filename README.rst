@@ -23,17 +23,19 @@ Actuellement compatible avec :
 
         export DJANGO_SETTINGS_MODULE=hypnos.settings.dev
 
-        export DEFAULT_DB_NAME=your_HYPNOS_db_name
-        export DEFAULT_DB_USER=your_HYPNOS_db_user
-        export DEFAULT_DB_PASSWORD=your_HYPNOS_db_password
-        export DEFAULT_DB_PORT=your_HYPNOS_db_port
-        export DEFAULT_DB_HOST=your_HYPNOS_db_host
+        export DEFAULT_DB_NAME=your_default_db_name
+        export DEFAULT_DB_USER=your_default_db_user
+        export DEFAULT_DB_PASSWORD=your_default_db_password
+        export DEFAULT_DB_PORT=your_defaultdb_port
+        export DEFAULT_DB_HOST=your_default_db_host
+        export DEFAULT_DB_ENGINE=your_default_db_name
 
-        export HYPNOS_DB_NAME=your_HYPNOS_db_name
-        export HYPNOS_DB_USER=your_HYPNOS_db_user
-        export HYPNOS_DB_PASSWORD=your_HYPNOS_db_password
-        export HYPNOS_DB_PORT=your_HYPNOS_db_port
-        export HYPNOS_DB_HOST=your_HYPNOS_db_host
+        export HYPNOS_DB_NAME=your_webservice_db_name
+        export HYPNOS_DB_USER=your_webservice_db_user
+        export HYPNOS_DB_PASSWORD=your_webservice_db_password
+        export HYPNOS_DB_PORT=your_webservice_db_port
+        export HYPNOS_DB_HOST=your_webservice_db_host
+        export HYPNOS_DB_ENGINE=your_webservice_db_engine
 
   * éditer le fichier /path/to/virtualenv/postdeactivate et ajouter les lignes suivantes : ::
 
@@ -44,12 +46,14 @@ Actuellement compatible avec :
         unset DEFAULT_DB_PASSWORD
         unset DEFAULT_DB_PORT
         unset DEFAULT_DB_HOST
+        unset DEFAULT_DB_ENGINE
        
         unset HYPNOS_DB_NAME
         unset HYPNOS_DB_USER
         unset HYPNOS_DB_PASSWORD
         unset HYPNOS_DB_PORT
         unset HYPNOS_DB_HOST
+        unset HYPNOS_DB_ENGINE
 
   * Activer le virtualenv : ::
 
