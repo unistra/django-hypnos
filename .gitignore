@@ -1,0 +1,58 @@
+*.py[cod]
+__pycache__
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Sphinx
+_build
+_static
+_template
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+htmlcov/
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+*.sublime-*
+.fab_tasks~
+*.db
+
+#excalibur
+sources.yml
+
+#vagrant
+Vagrantfile
+.vagrant
+
+# generated webservice
+hypnos/apps/hypnos/models.py
+hypnos/apps/hypnos/serializers.py
+hypnos/apps/hypnos/urls.py
+hypnos/apps/hypnos/views.py
