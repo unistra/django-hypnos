@@ -43,6 +43,7 @@ htmlcov/
 *.sublime-*
 .fab_tasks~
 *.db
+assets
 
 #excalibur
 sources.yml

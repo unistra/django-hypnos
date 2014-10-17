@@ -1,0 +1,16 @@
+{
+    "name": "HYPNOS API",
+    "authority": "",
+    "base_url": "",
+    "formats": [
+        "json"
+    ],
+    "version": "0.1",
+
+    "methods": {
+    },
+
+    "meta": {
+        "authors": ""
+    }
+}
