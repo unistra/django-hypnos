@@ -19,12 +19,12 @@ DEBUG = True
 DATABASES['default']['NAME'] = normpath(join(dirname(dirname(SITE_ROOT)),'shared/default.db'))
 
 # hypnos connection
-DATABASES['hypnos']['NAME'] = '{{ hypnos_name }}'
-DATABASES['hypnos']['USER'] = '{{ hypnos_user }}'
-DATABASES['hypnos']['PASSWORD'] = '{{ hypnos_password }}'
-DATABASES['hypnos']['PORT'] = '{{ hypnos_port }}'
-DATABASES['hypnos']['HOST'] = '{{ hypnos_host }}'
-DATABASES['hypnos']['ENGINE'] = '{{ hypnos_engine }}'
+DATABASES['webservice']['NAME'] = '{{ webservice_name }}'
+DATABASES['webservice']['USER'] = '{{ webservice_user }}'
+DATABASES['webservice']['PASSWORD'] = '{{ webservice_password }}'
+DATABASES['webservice']['PORT'] = '{{ webservice_port }}'
+DATABASES['webservice']['HOST'] = '{{ webservice_host }}'
+DATABASES['webservice']['ENGINE'] = '{{ webservice_engine }}'
 
 #####################
 # Log configuration #

@@ -19,7 +19,7 @@ Actuellement compatible avec :
       pip install -r requirements/dev.txt
 
   * éditer le fichier /path/to/virtualenvs/django-hypnos/bin/postactivate et ajouter les lignes suivantes en les adaptant.
-    DJANGO_SETTINGS_MODULE définit que l'on est en mode developpement. DEFAULT_DB correspond à la base de données de l'application django. HYPNOS_DB correspond à la base de donnée à laquelle on veut brancher le webservice: ::
+    DJANGO_SETTINGS_MODULE définit que l'on est en mode developpement. DEFAULT_DB correspond à la base de données de l'application django. WEBSERVICE_DB correspond à la base de donnée à laquelle on veut brancher le webservice: ::
 
         export DJANGO_SETTINGS_MODULE=hypnos.settings.dev
 
@@ -30,12 +30,12 @@ Actuellement compatible avec :
         export DEFAULT_DB_HOST=your_default_db_host
         export DEFAULT_DB_ENGINE=your_default_db_name
 
-        export HYPNOS_DB_NAME=your_webservice_db_name
-        export HYPNOS_DB_USER=your_webservice_db_user
-        export HYPNOS_DB_PASSWORD=your_webservice_db_password
-        export HYPNOS_DB_PORT=your_webservice_db_port
-        export HYPNOS_DB_HOST=your_webservice_db_host
-        export HYPNOS_DB_ENGINE=your_webservice_db_engine
+        export WEBSERVICE_DB_NAME=your_webservice_db_name
+        export WEBSERVICE_DB_USER=your_webservice_db_user
+        export WEBSERVICE_DB_PASSWORD=your_webservice_db_password
+        export WEBSERVICE_DB_PORT=your_webservice_db_port
+        export WEBSERVICE_DB_HOST=your_webservice_db_host
+        export WEBSERVICE_DB_ENGINE=your_webservice_db_engine
 
   * éditer le fichier /path/to/virtualenv/postdeactivate et ajouter les lignes suivantes : ::
 
@@ -48,12 +48,12 @@ Actuellement compatible avec :
         unset DEFAULT_DB_HOST
         unset DEFAULT_DB_ENGINE
        
-        unset HYPNOS_DB_NAME
-        unset HYPNOS_DB_USER
-        unset HYPNOS_DB_PASSWORD
-        unset HYPNOS_DB_PORT
-        unset HYPNOS_DB_HOST
-        unset HYPNOS_DB_ENGINE
+        unset WEBSERVICE_DB_NAME
+        unset WEBSERVICE_DB_USER
+        unset WEBSERVICE_DB_PASSWORD
+        unset WEBSERVICE_DB_PORT
+        unset WEBSERVICE_DB_HOST
+        unset WEBSERVICE_DB_ENGINE
 
   * Activer le virtualenv : ::
 
@@ -85,6 +85,6 @@ Utilisation :
   * Lui générer un token de connection via le menu "Tokens"
   * Lui donner les droits sur les champs souhaités via le menu "User fields permissions"
   * Cet utilisateur pourra alors questionner le webservice via :
-    * http://127.0.0.1:8000/hypnos/<model_voulu>/<pk>.json
+    * http://127.0.0.1:8000/webservice/<model_voulu>/<pk>.json
     * headers : "Authorization: Token S3CR3T"
 

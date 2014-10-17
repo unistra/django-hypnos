@@ -44,7 +44,7 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
-    }, 'hypnos': {
+    }, 'webservice': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': '',
         'USER': '',
@@ -54,7 +54,7 @@ DATABASES = {
     }
 }
 
-DATABASE_ROUTERS = ['hypnos.router.HypnosRouter']
+DATABASE_ROUTERS = ['hypnos.router.WebserviceRouter']
 
 
 ######################
@@ -225,6 +225,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'hypnos.apps.hypnos',
+    'hypnos.apps.webservice',
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

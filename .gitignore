@@ -52,7 +52,7 @@ Vagrantfile
 .vagrant
 
 # generated webservice
-hypnos/apps/hypnos/models.py
-hypnos/apps/hypnos/serializers.py
-hypnos/apps/hypnos/urls.py
-hypnos/apps/hypnos/views.py
+hypnos/apps/webservice/models.py
+hypnos/apps/webservice/serializers.py
+hypnos/apps/webservice/urls.py
+hypnos/apps/webservice/views.py

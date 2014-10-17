@@ -5,6 +5,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^hypnos/', include('hypnos.apps.hypnos.urls', namespace='hypnos')),
+    url(r'^webservice/', include('hypnos.apps.webservice.urls', namespace='webservice')),
     url(r'^admin/', include(admin.site.urls)),
 )

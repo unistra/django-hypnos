@@ -77,12 +77,12 @@ def test():
     env.socket_port = '8011'
     env.socket_host = '127.0.0.1'
     env.map_settings = {
-        'hypnos_name': "DATABASES['hypnos']['NAME']",
-        'hypnos_user': "DATABASES['hypnos']['USER']",
-        'hypnos_password': "DATABASES['hypnos']['PASSWORD']",
-        'hypnos_port': "DATABASES['hypnos']['PORT']",
-        'hypnos_host': "DATABASES['hypnos']['HOST']",
-        'hypnos_engine': "DATABASES['hypnos']['ENGINE']"
+        'webservice_name': "DATABASES['webservice']['NAME']",
+        'webservice_user': "DATABASES['webservice']['USER']",
+        'webservice_password': "DATABASES['webservice']['PASSWORD']",
+        'webservice_port': "DATABASES['webservice']['PORT']",
+        'webservice_host': "DATABASES['webservice']['HOST']",
+        'webservice_engine': "DATABASES['webservice']['ENGINE']"
     }
     execute(build_env)
 
@@ -114,12 +114,12 @@ def prod():
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_engine': "DATABASES['default']['ENGINE']",
         'secret_key': "SECRET_KEY",
-        'hypnos_name': "DATABASES['hypnos']['NAME']",
-        'hypnos_user': "DATABASES['hypnos']['USER']",
-        'hypnos_password': "DATABASES['hypnos']['PASSWORD']",
-        'hypnos_port': "DATABASES['hypnos']['PORT']",
-        'hypnos_host': "DATABASES['hypnos']['HOST']",
-        'hypnos_engine': "DATABASES['hypnos']['ENGINE']"
+        'webservice_name': "DATABASES['webservice']['NAME']",
+        'webservice_user': "DATABASES['webservice']['USER']",
+        'webservice_password': "DATABASES['webservice']['PASSWORD']",
+        'webservice_port': "DATABASES['webservice']['PORT']",
+        'webservice_host': "DATABASES['webservice']['HOST']",
+        'webservice_engine': "DATABASES['webservice']['ENGINE']"
     }
     execute(build_env)
 

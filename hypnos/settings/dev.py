@@ -33,14 +33,14 @@ DATABASES = {
         'PASSWORD': environ.get('DEFAULT_DB_PASSWORD', ''),
         'HOST': environ.get('DEFAULT_DB_HOST', ''),
         'PORT': environ.get('DEFAULT_DB_PORT', '')
-    }, 'hypnos': {
-        'ENGINE': 'django.db.backends.%s' % environ.get('HYPNOS_DB_ENGINE',
+    }, 'webservice': {
+        'ENGINE': 'django.db.backends.%s' % environ.get('WEBSERVICE_DB_ENGINE',
                                                            'sqlite3'),
-        'NAME': environ.get('HYPNOS_DB_NAME', normpath(join(SITE_ROOT, 'webservice.db'))),
-        'USER': environ.get('HYPNOS_DB_USER', ''),
-        'PASSWORD': environ.get('HYPNOS_DB_PASSWORD', ''),
-        'HOST': environ.get('HYPNOS_DB_HOST', ''),
-        'PORT': environ.get('HYPNOS_DB_PORT', '')
+        'NAME': environ.get('WEBSERVICE_DB_NAME', normpath(join(SITE_ROOT, 'webservice.db'))),
+        'USER': environ.get('WEBSERVICE_DB_USER', ''),
+        'PASSWORD': environ.get('WEBSERVICE_DB_PASSWORD', ''),
+        'HOST': environ.get('WEBSERVICE_DB_HOST', ''),
+        'PORT': environ.get('WEBSERVICE_DB_PORT', '')
     }
 }
 

@@ -12,10 +12,10 @@ from django.db import connections
 class Command(NoArgsCommand):
     help = "Create models, serializers, urls and views for the webservice"
 
-    database = 'hypnos'
+    database = 'webservice'
     requires_model_validation = False
     db_module = 'django.db'
-    app_folder = join(join(settings.DJANGO_ROOT, "apps"), "hypnos")
+    app_folder = join(join(settings.DJANGO_ROOT, "apps"), "webservice")
 
     def table2model(self, table_name):
         return table_name.title().replace('_', '')\
