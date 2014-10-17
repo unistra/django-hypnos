@@ -71,13 +71,13 @@ Installation en environnement de test :
   * workon django-hypnos
   * pip install pydiploy
   * modification de fabfile.py pour définir l'environnement de test
-  * fab tag:master test pre_install deploy post_install --set <parameters>
+  * fab tag:master test pre_install deploy loadwebservice post_install --set <parameters>
 
 Installation en environnement de production :
   * workon django-hypnos
   * pip install pydiploy
   * modification de fabfile.py pour définir l'environnement de prod
-  * fab tag:master prod pre_install deploy post_install --set <parameters>
+  * fab tag:master prod pre_install deploy loadwebservice post_install --set <parameters>
 
 Utilisation : 
 

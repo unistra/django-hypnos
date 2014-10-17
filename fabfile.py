@@ -3,9 +3,10 @@
 """
 """
 
-from fabric.api import (env, roles, execute, task, sudo)
+from fabric.api import (env, roles, execute, task, sudo, cd, settings)
 from os.path import join
 
+from fabtools.python import virtualenv
 import pydiploy
 import pydiploy.django
 import pydiploy.require.database
@@ -50,9 +51,9 @@ def test():
         'lb': ['192.168.1.2']
     }
     env.backends = ['127.0.0.1']
-    env.server_name = 'vagrant-hypnosws-test'
-    env.short_server_name = 'vagrant-hypnosws-test'
-    env.server_ip = ''
+    env.server_name = 'hypnosws-test'
+    env.short_server_name = 'hypnosws-test'
+    env.server_ip = '192.168.1.2'
     env.server_ssl_on = False
     env.goal = 'test'
     env.socket_port = '8011'
@@ -76,9 +77,9 @@ def prod():
         'lb': ['192.168.1.2']
     }
     env.backends = ['127.0.0.1']
-    env.server_name = 'vagrant-hypnosws-prod'
-    env.short_server_name = 'vagrant-hypnosws-prod'
-    env.server_ip = ''
+    env.server_name = 'hypnosws-prod'
+    env.short_server_name = 'hypnosws-prod'
+    env.server_ip = '192.168.1.2'
     env.no_shared_sessions = False
     env.server_ssl_on = True
     env.path_to_cert = '/etc/ssl/certs/xxx.pem'
@@ -150,7 +151,16 @@ def pre_install_frontend():
 def deploy(upgrade_pkg=False):
     """ Deploy code on server. """
     execute(pydiploy.django.deploy, upgrade_pkg=upgrade_pkg)
-    sudo('python manage.py loadwebservice')
+
+
+
+@roles('web')
+@task
+def loadwebservice():
+    with virtualenv(env.remote_virtualenv_dir):
+        with cd(env.remote_current_path):
+            with settings(sudo_user=env.remote_owner):
+                sudo('python manage.py loadwebservice')
 
 
 @roles('web')
