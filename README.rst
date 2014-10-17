@@ -3,11 +3,6 @@ django-hypnos
 
 Génération automatique d'un webservice à partir d'une base de données existante.
 
-Actuellement compatible avec :
-  * sqlite
-  * postgresql
-  * oracle
-
 * Installation en environnement de développement :
 
   * créer un environnement virtuel avec virtualenvwrapper : ::
@@ -73,10 +68,16 @@ Actuellement compatible avec :
 
 
 Installation en environnement de test :
-  * voir pydiploy
+  * workon django-hypnos
+  * pip install pydiploy
+  * modification de fabfile.py pour définir l'environnement de test
+  * fab tag:master test pre_install deploy post_install --set <parameters>
 
 Installation en environnement de production :
-  * voir pydiploy
+  * workon django-hypnos
+  * pip install pydiploy
+  * modification de fabfile.py pour définir l'environnement de prod
+  * fab tag:master prod pre_install deploy post_install --set <parameters>
 
 Utilisation : 
 
@@ -88,3 +89,11 @@ Utilisation :
     * http://127.0.0.1:8000/webservice/<model_voulu>/<pk>.json
     * headers : "Authorization: Token S3CR3T"
 
+Compatible par défaut avec :
+  * sqlite
+  * postgresql
+
+Pour oracle, il faut en plus:
+  * Installer le client oracle
+  * pip install -r requirements/oracle.txt
+  * Décommenter la partie concernant oracle dans le fabfile

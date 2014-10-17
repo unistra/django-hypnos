@@ -1,7 +1,4 @@
 Django==1.6
---allow-external cx-oracle
---allow-unverified cx-oracle
-cx-oracle
 djangorestframework
 django-filter
 djangorestframework-fine-permissions

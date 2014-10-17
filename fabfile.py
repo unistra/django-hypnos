@@ -3,7 +3,7 @@
 """
 """
 
-from fabric.api import (env, roles, execute, task)
+from fabric.api import (env, roles, execute, task, sudo)
 from os.path import join
 
 import pydiploy
@@ -23,7 +23,7 @@ env.remote_python_version = 2.7
 env.remote_virtualenv_root = join(env.remote_home, '.virtualenvs')
 env.remote_virtualenv_dir = join(env.remote_virtualenv_root,
                                  env.application_name)
-env.remote_repo_url = 'git@git.u-strasbg.fr:django-hypnos.git'  # git repository url
+env.remote_repo_url = ''  # git repository url
 env.local_tmp_dir = '/tmp'
 env.remote_static_root = '/var/www/restapis/'
 env.locale = 'fr_FR.UTF-8'  # locale to use on remote
@@ -43,25 +43,6 @@ env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.z
 
 
 @task
-def dev():
-    env.user = 'vagrant'
-    env.roledefs = {
-        'web': ['192.168.1.2'],
-        'lb': ['192.168.1.2']
-    }
-    env.backends = ['127.0.0.1']
-    env.server_name = 'vagrant-hypnosws-dev'
-    env.short_server_name = 'vagrant-hypnosws-dev'
-    env.server_ip = ''
-    env.server_ssl_on = False
-    env.goal = 'dev'
-    env.socket_port = '8011'
-    env.socket_host = '127.0.0.1'
-    env.map_settings = {}
-    execute(build_env)
-
-
-@task
 def test():
     env.user = 'vagrant'
     env.roledefs = {
@@ -75,7 +56,7 @@ def test():
     env.server_ssl_on = False
     env.goal = 'test'
     env.socket_port = '8011'
-    env.socket_host = '127.0.0.1'
+    env.static_folder = '/site_media/'
     env.map_settings = {
         'webservice_name': "DATABASES['webservice']['NAME']",
         'webservice_user': "DATABASES['webservice']['USER']",
@@ -104,7 +85,6 @@ def prod():
     env.path_to_cert_key = '/etc/ssl/private/xxx.key'
     env.goal = 'prod'
     env.socket_port = '8011'
-    env.socket_host = '127.0.0.1'
     env.static_folder = '/site_media/'
     env.map_settings = {
         'default_db_user': "DATABASES['default']['USER']",
@@ -170,6 +150,7 @@ def pre_install_frontend():
 def deploy(upgrade_pkg=False):
     """ Deploy code on server. """
     execute(pydiploy.django.deploy, upgrade_pkg=upgrade_pkg)
+    sudo('python manage.py loadwebservice')
 
 
 @roles('web')
