@@ -50,10 +50,10 @@ def test():
         'web': ['192.168.1.2'],
         'lb': ['192.168.1.2']
     }
-    env.backends = ['127.0.0.1']
+    env.backends = ['192.168.1.2']
     env.server_name = 'hypnosws-test'
     env.short_server_name = 'hypnosws-test'
-    env.server_ip = '192.168.1.2'
+    env.server_ip = ''
     env.server_ssl_on = False
     env.goal = 'test'
     env.socket_port = '8011'
@@ -76,10 +76,10 @@ def prod():
         'web': ['192.168.1.2'],
         'lb': ['192.168.1.2']
     }
-    env.backends = ['127.0.0.1']
+    env.backends = ['192.168.1.2']
     env.server_name = 'hypnosws-prod'
     env.short_server_name = 'hypnosws-prod'
-    env.server_ip = '192.168.1.2'
+    env.server_ip = ''
     env.no_shared_sessions = False
     env.server_ssl_on = True
     env.path_to_cert = '/etc/ssl/certs/xxx.pem'
