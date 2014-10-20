@@ -112,4 +112,4 @@ Génération automatique d'un webservice à partir d'une base de données exista
   * S'il y a des problèmes avec le modèle du webservice lors du démarrage du serveur, il faut les corriger manuellement
   * Pour ne générer que certaines tables dans le modèle du webservice, vous pouvez utiliser l'option "filter" de "loadwebservice" : ::
 
-        python manage.py loadwebservice --filter "User Book Address"
+        python manage.py loadwebservice --filter "user book address"
