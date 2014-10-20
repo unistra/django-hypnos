@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 import keyword
 import re
+from optparse import make_option
 from django.core.management.base import NoArgsCommand, CommandError
 from django.utils.datastructures import SortedDict
 from django.conf import settings
@@ -11,6 +12,10 @@ from django.db import connections
 
 class Command(NoArgsCommand):
     help = "Create models, serializers, urls and views for the webservice"
+
+    option_list = NoArgsCommand.option_list + (
+        make_option('--filter', help='define table names to filter separated by a space'),
+    )
 
     database = 'webservice'
     requires_model_validation = False
@@ -44,15 +49,18 @@ class Command(NoArgsCommand):
         except NotImplementedError:
             raise CommandError("Database inspection isn't supported for the \
 currently selected database backend.")
-        except Exception:
-            raise CommandError("An error occured")
+        except Exception as e:
+            raise CommandError(e)
         else:
             self.stdout.write("Webservice created !")
 
     def handle_urls(self, options):
         connection = connections[self.database]
-        # 'table_name_filter' is a stealth option
-        table_name_filter = options.get('table_name_filter')
+        if options.get('filter'):
+            table_name_filter = lambda tn:tn in options.get('filter').split()
+        else:
+            # 'table_name_filter' is a stealth option
+            table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
         yield "# This is an auto-generated Django model module."
@@ -83,8 +91,11 @@ suffix_required=True)"
 
     def handle_views(self, options):
         connection = connections[self.database]
-        # 'table_name_filter' is a stealth option
-        table_name_filter = options.get('table_name_filter')
+        if options.get('filter'):
+            table_name_filter = lambda tn:tn in options.get('filter').split()
+        else:
+            # 'table_name_filter' is a stealth option
+            table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
         yield "# This is an auto-generated Django model module."
@@ -113,8 +124,11 @@ import ModelPermissionsSerializer"
 
     def handle_serializers(self, options):
         connection = connections[self.database]
-        # 'table_name_filter' is a stealth option
-        table_name_filter = options.get('table_name_filter')
+        if options.get('filter'):
+            table_name_filter = lambda tn:tn in options.get('filter').split()
+        else:
+            # 'table_name_filter' is a stealth option
+            table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
         yield "# This is an auto-generated Django model module."
@@ -135,8 +149,11 @@ import ModelPermissionsSerializer"
 
     def handle_inspection(self, options):
         connection = connections[self.database]
-        # 'table_name_filter' is a stealth option
-        table_name_filter = options.get('table_name_filter')
+        if options.get('filter'):
+            table_name_filter = lambda tn:tn in options.get('filter').split()
+        else:
+            # 'table_name_filter' is a stealth option
+            table_name_filter = options.get('table_name_filter')
 
         strip_prefix = lambda s: s[1:] if s.startswith("u'") else s
 
