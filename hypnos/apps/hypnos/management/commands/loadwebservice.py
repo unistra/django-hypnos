@@ -77,7 +77,7 @@ import ModelPermissionsSerializer"
             if table_name_filter is not None and callable(table_name_filter):
                 if not table_name_filter(table_name):
                     continue
-            yield "url(r'^%s/(?P<pk>\d+)$', views.%sDetail.as_view(), \
+            yield "url(r'^%s/(?P<pk>\w+)$', views.%sDetail.as_view(), \
 name='%s-all-detail')," % (self.table2model(table_name).lower(),
                            self.table2model(table_name),
                            self.table2model(table_name).lower())

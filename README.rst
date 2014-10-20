@@ -13,8 +13,11 @@ Génération automatique d'un webservice à partir d'une base de données exista
 
       pip install -r requirements/dev.txt
 
-  * éditer le fichier /path/to/virtualenvs/django-hypnos/bin/postactivate et ajouter les lignes suivantes en les adaptant.
-    DJANGO_SETTINGS_MODULE définit que l'on est en mode developpement. DEFAULT_DB correspond à la base de données de l'application django. WEBSERVICE_DB correspond à la base de donnée à laquelle on veut brancher le webservice: ::
+  * éditer le fichier /path/to/virtualenvs/django-hypnos/bin/postactivate et ajouter les lignes suivantes en les adaptant :
+
+    * DJANGO_SETTINGS_MODULE définit que l'on est en mode developpement
+    * DEFAULT_DB correspond à la base de données de l'application django
+    * WEBSERVICE_DB correspond à la base de donnée à laquelle on veut brancher le webservice ::
 
         export DJANGO_SETTINGS_MODULE=hypnos.settings.dev
 
@@ -23,14 +26,14 @@ Génération automatique d'un webservice à partir d'une base de données exista
         export DEFAULT_DB_PASSWORD=your_default_db_password
         export DEFAULT_DB_PORT=your_defaultdb_port
         export DEFAULT_DB_HOST=your_default_db_host
-        export DEFAULT_DB_ENGINE=your_default_db_name
+        export DEFAULT_DB_ENGINE=your_default_db_name (ex: postgresql_psycopg2, sqlite3, oracle)
 
         export WEBSERVICE_DB_NAME=your_webservice_db_name
         export WEBSERVICE_DB_USER=your_webservice_db_user
         export WEBSERVICE_DB_PASSWORD=your_webservice_db_password
         export WEBSERVICE_DB_PORT=your_webservice_db_port
         export WEBSERVICE_DB_HOST=your_webservice_db_host
-        export WEBSERVICE_DB_ENGINE=your_webservice_db_engine
+        export WEBSERVICE_DB_ENGINE=your_webservice_db_engine (ex: postgresql_psycopg2, sqlite3, oracle)
 
   * éditer le fichier /path/to/virtualenv/postdeactivate et ajouter les lignes suivantes : ::
 
@@ -50,50 +53,63 @@ Génération automatique d'un webservice à partir d'une base de données exista
         unset WEBSERVICE_DB_HOST
         unset WEBSERVICE_DB_ENGINE
 
-  * Activer le virtualenv : ::
+  * Réactiver le virtualenv : ::
 
-        workon django-hypnos
-
-  * Creation de la base de donnée django : ::
-
-        python manage.py syncdb && python manage.py migrate
+        deactivate && workon django-hypnos
 
   * Génération du webservice : ::
 
         python manage.py loadwebservice
+
+  * Creation de la base de donnée django : ::
+
+        python manage.py syncdb && python manage.py migrate
 
   * Démarrer l'application : ::
 
         python manage.py runserver
 
 
-Installation en environnement de test :
-  * workon django-hypnos
-  * pip install pydiploy
-  * modification de fabfile.py pour définir l'environnement de test
-  * fab tag:master test pre_install deploy loadwebservice post_install --set <parameters>
+* Installation en environnement de test :
 
-Installation en environnement de production :
-  * workon django-hypnos
-  * pip install pydiploy
-  * modification de fabfile.py pour définir l'environnement de prod
-  * fab tag:master prod pre_install deploy loadwebservice post_install --set <parameters>
+  * Modifier le fichier fabfile.py pour définir l'environnement de test
+  * Executer les commander suivante : ::
 
-Utilisation : 
+        pip install pydiploy
+        fab tag:master test pre_install deploy loadwebservice post_install --set <parameters>
+
+* Installation en environnement de production :
+
+  * Modifier le fichier fabfile.py pour définir l'environnement de production
+  * Executer les commander suivante : ::
+
+        pip install pydiploy
+        fab tag:master prod pre_install deploy loadwebservice post_install --set <parameters>
+
+* Utilisation : 
 
   * Créer un utilisateur via l'interface d'admin de django, menu "Users"
   * Lui donner les permissions de type "view" sur les objets souhaités
   * Lui générer un token de connection via le menu "Tokens"
   * Lui donner les droits sur les champs souhaités via le menu "User fields permissions"
   * Cet utilisateur pourra alors questionner le webservice via :
-    * http://127.0.0.1:8000/webservice/<model_voulu>/<pk>.json
-    * headers : "Authorization: Token S3CR3T"
 
-Compatible par défaut avec :
+    * http://127.0.0.1:8000/webservice/<nom_du_model_en_minuscule>/<pk>.json
+    * headers : "Authorization: Token <le_token_précédemment_généré>"
+
+* Compatible par défaut avec :
+
   * sqlite
   * postgresql
+  * Pour oracle, il faut en plus:
 
-Pour oracle, il faut en plus:
-  * Installer le client oracle
-  * pip install -r requirements/oracle.txt
-  * Décommenter la partie concernant oracle dans le fabfile
+    * Installer le client oracle
+    * pip install -r requirements/oracle.txt
+    * Décommenter la partie concernant oracle dans le fabfile
+
+* Astuces :
+
+  * S'il y a des problèmes avec le modèle du webservice lors du démarrage du serveur, il faut les corriger manuellement
+  * Pour ne générer que certaines tables dans le modèle du webservice, vous pouvez utiliser l'option "filter" de "loadwebservice" : ::
+
+        python manage.py loadwebservice --filter "User Book Address"
