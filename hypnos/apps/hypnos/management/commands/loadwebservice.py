@@ -38,7 +38,8 @@ class Command(NoArgsCommand):
             try:
                 for filetype in ['models', 'serializers', 'views', 'urls', 'filters']:
                     with open(join(self.app_folder, "%s.py" % filetype), 'w') as f:
-                        for line in eval("self.handle_%s(options)" % filetype):
+
+                        for line in getattr(self,"handle_%s" % filetype)(options):
                             f.write("%s\n" % line)
                     self.stdout.write("%s.py:ok" % filetype)
             except NotImplementedError:
