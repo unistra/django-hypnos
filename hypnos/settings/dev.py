@@ -55,12 +55,3 @@ LOGGING['handlers']['file']['level'] = 'DEBUG'
 for logger in LOGGING['loggers']:
     LOGGING['loggers'][logger]['level'] = 'DEBUG'
 
-
-###########################
-# Unit test configuration #
-###########################
-
-INSTALLED_APPS += (
-    'coverage',
-)
-TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'

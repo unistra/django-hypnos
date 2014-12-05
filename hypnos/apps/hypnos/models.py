@@ -1,0 +1,3 @@
+"""
+Empty models for django
+"""

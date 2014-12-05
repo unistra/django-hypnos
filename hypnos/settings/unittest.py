@@ -10,21 +10,21 @@ from .base import *
 
 DEBUG = True
 
-
 ##########################
 # Database configuration #
 ##########################
 
 # Default db connection
-DATABASES['default']['NAME'] = normpath(join(dirname(dirname(SITE_ROOT)),'shared/default.db'))
+DATABASES['default']['NAME'] = normpath(join(DJANGO_ROOT, "apps/hypnos/tests/default_test.db"))
 
 # hypnos connection
-DATABASES['webservice']['NAME'] = '{{ webservice_name }}'
-DATABASES['webservice']['USER'] = '{{ webservice_user }}'
-DATABASES['webservice']['PASSWORD'] = '{{ webservice_password }}'
-DATABASES['webservice']['PORT'] = '{{ webservice_port }}'
-DATABASES['webservice']['HOST'] = '{{ webservice_host }}'
-DATABASES['webservice']['ENGINE'] = '{{ webservice_engine }}'
+DATABASES['webservice']['NAME'] = normpath(join(DJANGO_ROOT, "apps/hypnos/tests/chinook.sqlite"))
+DATABASES['webservice']['ENGINE'] = 'django.db.backends.sqlite3'
+DATABASES['webservice']['USER'] = ''
+DATABASES['webservice']['PASSWORD'] = ''
+DATABASES['webservice']['PORT'] = ''
+DATABASES['webservice']['HOST'] = ''
+
 
 #####################
 # Log configuration #

@@ -1,5 +1,5 @@
 Django==1.6
-djangorestframework
+djangorestframework==2.4.4
 django-filter
 djangorestframework-fine-permissions
 six

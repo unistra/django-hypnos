@@ -47,7 +47,7 @@ setup(
     keywords=[
         'django', 'Université de Strasbourg',
         'API', 'REST', 'webservice', 'ORM'],
-    url='',
-    download_url=''
+    url='https://github.com/unistra/django-hypnos',
+    download_url='https://github.com/unistra/django-hypnos'
 
 )
