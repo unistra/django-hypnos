@@ -57,3 +57,4 @@ hypnos/apps/webservice/models.py
 hypnos/apps/webservice/serializers.py
 hypnos/apps/webservice/urls.py
 hypnos/apps/webservice/views.py
+hypnos/apps/webservice/filters.py

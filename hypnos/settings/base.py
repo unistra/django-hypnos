@@ -221,6 +221,7 @@ THIRD_PARTY_APPS = (
     'rest_framework.authtoken',
     'rest_framework_fine_permissions',
     'south',
+    'django_filters'
 )
 
 LOCAL_APPS = (

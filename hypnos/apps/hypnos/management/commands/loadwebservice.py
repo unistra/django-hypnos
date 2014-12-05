@@ -46,6 +46,10 @@ class Command(NoArgsCommand):
                 for line in self.handle_urls(options):
                     f.write("%s\n" % line)
             self.stdout.write("urls.py:ok")
+            with open(join(self.app_folder, "filters.py"), 'w') as f:
+                for line in self.handle_filters(options):
+                    f.write("%s\n" % line)
+            self.stdout.write("filters.py:ok")
         except NotImplementedError:
             raise CommandError("Database inspection isn't supported for the \
 currently selected database backend.")
@@ -104,6 +108,7 @@ suffix_required=True)"
 import ModelPermissionsSerializer"
         yield 'from . import models'
         yield 'from . import serializers'
+        yield 'from . import filters'
         yield 'from rest_framework import generics'
         yield ''
 
@@ -119,8 +124,9 @@ import ModelPermissionsSerializer"
             yield 'class %sList(generics.ListCreateAPIView):' % (
                 self.table2model(table_name),)
             yield "    queryset = models.%s.objects.all()" % self.table2model(table_name)
-            yield "    serializer_class = serializers.%sSerializer\n" % (
+            yield "    serializer_class = serializers.%sSerializer" % (
                 self.table2model(table_name),)
+            yield "    filter_class = filters.%sListFilter\n" % self.table2model(table_name)
 
     def handle_serializers(self, options):
         connection = connections[self.database]
@@ -146,6 +152,37 @@ import ModelPermissionsSerializer"
                 self.table2model(table_name),)
             yield "    class Meta:"
             yield "        model = models.%s\n" % self.table2model(table_name)
+
+
+
+
+    def handle_filters(self, options):
+        connection = connections[self.database]
+        if options.get('filter'):
+            table_name_filter = lambda tn:tn in options.get('filter').split()
+        else:
+            # 'table_name_filter' is a stealth option
+            table_name_filter = options.get('table_name_filter')
+
+        cursor = connection.cursor()
+        yield "# This is an auto-generated Django model module."
+        yield ''
+        yield "import django_filters"
+        yield 'from . import models'
+        yield ''
+
+        for table_name in connection.introspection.table_names(cursor):
+            if table_name_filter is not None and callable(table_name_filter):
+                if not table_name_filter(table_name):
+                    continue
+            yield 'class %sListFilter(django_filters.FilterSet):' % (
+                self.table2model(table_name),)
+            yield "    class Meta:"
+            yield "        model = models.%s\n" % self.table2model(table_name)
+
+
+
+
 
     def handle_inspection(self, options):
         connection = connections[self.database]
