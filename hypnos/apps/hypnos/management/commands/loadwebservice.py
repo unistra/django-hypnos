@@ -36,26 +36,11 @@ class Command(NoArgsCommand):
 
         if erase:
             try:
-                with open(join(self.app_folder, "models.py"), 'w') as f:
-                    for line in self.handle_inspection(options):
-                        f.write("%s\n" % line)
-                self.stdout.write("models.py:ok")
-                with open(join(self.app_folder, "serializers.py"), 'w') as f:
-                    for line in self.handle_serializers(options):
-                        f.write("%s\n" % line)
-                self.stdout.write("serializers.py:ok")
-                with open(join(self.app_folder, "views.py"), 'w') as f:
-                    for line in self.handle_views(options):
-                        f.write("%s\n" % line)
-                self.stdout.write("views.py:ok")
-                with open(join(self.app_folder, "urls.py"), 'w') as f:
-                    for line in self.handle_urls(options):
-                        f.write("%s\n" % line)
-                self.stdout.write("urls.py:ok")
-                with open(join(self.app_folder, "filters.py"), 'w') as f:
-                    for line in self.handle_filters(options):
-                        f.write("%s\n" % line)
-                self.stdout.write("filters.py:ok")
+                for filetype in ['models', 'serializers', 'views', 'urls', 'filters']:
+                    with open(join(self.app_folder, "%s.py" % filetype), 'w') as f:
+                        for line in eval("self.handle_%s(options)" % filetype):
+                            f.write("%s\n" % line)
+                    self.stdout.write("%s.py:ok" % filetype)
             except NotImplementedError:
                 raise CommandError("Database inspection isn't supported for the \
     currently selected database backend.")
@@ -190,7 +175,7 @@ import ModelPermissionsSerializer"
 
 
 
-    def handle_inspection(self, options):
+    def handle_models(self, options):
         connection = connections[self.database]
         if options.get('filter'):
             table_name_filter = lambda tn:tn in options.get('filter').split()
