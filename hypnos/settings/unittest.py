@@ -18,7 +18,7 @@ DEBUG = True
 DATABASES['default']['NAME'] = normpath(join(DJANGO_ROOT, "apps/hypnos/tests/default_test.db"))
 
 # hypnos connection
-DATABASES['webservice']['NAME'] = normpath(join(DJANGO_ROOT, "apps/hypnos/tests/chinook.sqlite"))
+DATABASES['webservice']['NAME'] = normpath(join(DJANGO_ROOT, "apps/hypnos/tests/webservice_test.db"))
 DATABASES['webservice']['ENGINE'] = 'django.db.backends.sqlite3'
 DATABASES['webservice']['USER'] = ''
 DATABASES['webservice']['PASSWORD'] = ''
