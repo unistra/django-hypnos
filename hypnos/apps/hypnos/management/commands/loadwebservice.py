@@ -1,12 +1,12 @@
 from __future__ import unicode_literals
-
+from six.moves import input
 import keyword
 import re
 from optparse import make_option
 from django.core.management.base import NoArgsCommand, CommandError
 from django.utils.datastructures import SortedDict
 from django.conf import settings
-from os.path import join
+from os.path import join, exists
 from django.db import connections
 
 
@@ -29,34 +29,40 @@ class Command(NoArgsCommand):
 
 
     def handle_noargs(self, **options):
-        try:
-            with open(join(self.app_folder, "models.py"), 'w') as f:
-                for line in self.handle_inspection(options):
-                    f.write("%s\n" % line)
-            self.stdout.write("models.py:ok")
-            with open(join(self.app_folder, "serializers.py"), 'w') as f:
-                for line in self.handle_serializers(options):
-                    f.write("%s\n" % line)
-            self.stdout.write("serializers.py:ok")
-            with open(join(self.app_folder, "views.py"), 'w') as f:
-                for line in self.handle_views(options):
-                    f.write("%s\n" % line)
-            self.stdout.write("views.py:ok")
-            with open(join(self.app_folder, "urls.py"), 'w') as f:
-                for line in self.handle_urls(options):
-                    f.write("%s\n" % line)
-            self.stdout.write("urls.py:ok")
-            with open(join(self.app_folder, "filters.py"), 'w') as f:
-                for line in self.handle_filters(options):
-                    f.write("%s\n" % line)
-            self.stdout.write("filters.py:ok")
-        except NotImplementedError:
-            raise CommandError("Database inspection isn't supported for the \
-currently selected database backend.")
-        except Exception as e:
-            raise CommandError(e)
-        else:
-            self.stdout.write("Webservice created !")
+        erase = True
+        if exists(join(self.app_folder, "models.py")):
+            userinput = input("Warning : webservice folder isn't empty. Are you sure you want to continue ? (y/N)")
+            erase = True if userinput and userinput.lower() in ['y','yes'] else False
+
+        if erase:
+            try:
+                with open(join(self.app_folder, "models.py"), 'w') as f:
+                    for line in self.handle_inspection(options):
+                        f.write("%s\n" % line)
+                self.stdout.write("models.py:ok")
+                with open(join(self.app_folder, "serializers.py"), 'w') as f:
+                    for line in self.handle_serializers(options):
+                        f.write("%s\n" % line)
+                self.stdout.write("serializers.py:ok")
+                with open(join(self.app_folder, "views.py"), 'w') as f:
+                    for line in self.handle_views(options):
+                        f.write("%s\n" % line)
+                self.stdout.write("views.py:ok")
+                with open(join(self.app_folder, "urls.py"), 'w') as f:
+                    for line in self.handle_urls(options):
+                        f.write("%s\n" % line)
+                self.stdout.write("urls.py:ok")
+                with open(join(self.app_folder, "filters.py"), 'w') as f:
+                    for line in self.handle_filters(options):
+                        f.write("%s\n" % line)
+                self.stdout.write("filters.py:ok")
+            except NotImplementedError:
+                raise CommandError("Database inspection isn't supported for the \
+    currently selected database backend.")
+            except Exception as e:
+                raise CommandError(e)
+            else:
+                self.stdout.write("Webservice created !")
 
     def handle_urls(self, options):
         connection = connections[self.database]
