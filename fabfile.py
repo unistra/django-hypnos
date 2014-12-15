@@ -146,13 +146,25 @@ def pre_install_frontend():
     execute(pydiploy.django.pre_install_frontend)
 
 
+@task
+def deploy():
+    """Deploy code and sync static files"""
+    #execute(set_down)
+    execute(deploy_backend)
+    execute(deploy_frontend)
+    #execute(set_up)
+
 @roles('web')
 @task
-def deploy(upgrade_pkg=False):
-    """ Deploy code on server. """
-    execute(pydiploy.django.deploy, upgrade_pkg=upgrade_pkg)
+def deploy_backend(update_pkg=False):
+    """Deploy code on server"""
+    execute(pydiploy.django.deploy_backend)
 
-
+@roles('lb')
+@task
+def deploy_frontend():
+    """Deploy static files on load balancer"""
+    execute(pydiploy.django.deploy_frontend)
 
 @roles('web')
 @task
