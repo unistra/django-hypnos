@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from six.moves import input
 import keyword
@@ -59,6 +60,7 @@ class Command(NoArgsCommand):
             table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
+        yield "# -*- coding: utf-8 -*-"
         yield "# This is an auto-generated Django model module."
         yield ''
         yield "from rest_framework_fine_permissions.serializers \
@@ -94,6 +96,7 @@ suffix_required=True)"
             table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
+        yield "# -*- coding: utf-8 -*-"
         yield "# This is an auto-generated Django model module."
         yield ''
         yield "from rest_framework_fine_permissions.serializers \
@@ -129,6 +132,7 @@ import ModelPermissionsSerializer"
             table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
+        yield "# -*- coding: utf-8 -*-"
         yield "# This is an auto-generated Django model module."
         yield ''
         yield "from rest_framework_fine_permissions.serializers \
@@ -157,6 +161,7 @@ import ModelPermissionsSerializer"
             table_name_filter = options.get('table_name_filter')
 
         cursor = connection.cursor()
+        yield "# -*- coding: utf-8 -*-"
         yield "# This is an auto-generated Django model module."
         yield ''
         yield "import django_filters"
@@ -187,6 +192,7 @@ import ModelPermissionsSerializer"
         strip_prefix = lambda s: s[1:] if s.startswith("u'") else s
 
         cursor = connection.cursor()
+        yield "# -*- coding: utf-8 -*-"
         yield "# This is an auto-generated Django model module."
         yield "from __future__ import unicode_literals"
         yield ''
