@@ -1,7 +1,7 @@
 Django==1.6
 djangorestframework==2.4.4
 django-filter
-djangorestframework-fine-permissions
+djangorestframework-fine-permissions<0.5
 six
 south
 chaussette

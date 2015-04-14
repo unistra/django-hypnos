@@ -110,6 +110,10 @@ Génération automatique d'un webservice à partir d'une base de données exista
     * Installer le client oracle
     * pip install -r requirements/oracle.txt
     * Décommenter la partie concernant oracle dans le fabfile
+  * Pour mysql, il faut en plus:
+
+    * pip install -r requirements/mysql.txt
+
 
 * Astuces :
 

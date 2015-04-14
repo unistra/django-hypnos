@@ -248,6 +248,7 @@ import ModelPermissionsSerializer"
                         field_type = 'ForeignKey(%s' % rel_to
                     else:
                         field_type = "ForeignKey('%s'" % rel_to
+                    extra_params.update({'related_name': "%s_%s_related" % (table_name.lower(), att_name.lower() )})
                 else:
                     # Calling `get_field_type` to get the field type string
                     # and any additional paramters and notes.
