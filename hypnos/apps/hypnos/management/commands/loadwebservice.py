@@ -266,6 +266,11 @@ import ModelPermissionsSerializer"
                    extra_params == {'primary_key': True}:
                     continue
 
+
+                # Default BooleanField to false
+                if field_type == 'BooleanField(':
+                    extra_params['default'] = False
+
                 # Add 'null' and 'blank', if the 'null_ok' flag was present
                 # in the table description.
                 if row[6]:  # If it's NULL...

@@ -1,0 +1,6 @@
+[run]
+source = 
+    hypnos
+
+[report]
+omit = */tests/*

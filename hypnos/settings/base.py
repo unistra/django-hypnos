@@ -220,7 +220,6 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_fine_permissions',
-    'south',
     'django_filters'
 )
 
@@ -309,3 +308,9 @@ REST_FRAMEWORK = {
         'rest_framework_fine_permissions.permissions.FullDjangoModelPermissions',
     )
 }
+
+########
+# Tests#
+########
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+
