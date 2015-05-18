@@ -4,9 +4,10 @@
 import os
 from setuptools import setup
 from setuptools import find_packages
+import io
 
 
-with open('README.rst') as readme:
+with io.open('README.rst', encoding="utf-8") as readme:
     long_description = readme.read()
 
 
