@@ -4,6 +4,8 @@ django-hypnos
 .. image:: https://landscape.io/github/unistra/django-hypnos/master/landscape.svg?style=flat
    :target: https://landscape.io/github/unistra/django-hypnos/master
    :alt: Code Health
+.. image:: https://travis-ci.org/unistra/django-hypnos.svg
+    :target: https://travis-ci.org/unistra/django-hypnos
 
 Génération automatique d'un webservice à partir d'une base de données existante.
 
