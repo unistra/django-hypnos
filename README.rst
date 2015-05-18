@@ -6,6 +6,10 @@ django-hypnos
    :alt: Code Health
 .. image:: https://travis-ci.org/unistra/django-hypnos.svg
     :target: https://travis-ci.org/unistra/django-hypnos
+.. image:: https://coveralls.io/repos/unistra/django-hypnos/badge.svg
+    :target: https://coveralls.io/r/unistra/django-hypnos
+
+
 
 Génération automatique d'un webservice à partir d'une base de données existante.
 
