@@ -1,7 +1,7 @@
 Django==1.7
-djangorestframework==2.4.4
-django-filter
-djangorestframework-fine-permissions<0.5
+djangorestframework>=3.0,<3.1
+django-filter>=0.9
+djangorestframework-fine-permissions==0.5.1
 six
 chaussette
 psycopg2

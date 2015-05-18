@@ -113,7 +113,7 @@ import ModelPermissionsSerializer"
                     continue
             yield 'class %sDetail(generics.RetrieveUpdateDestroyAPIView):' % (
                 self.table2model(table_name),)
-            yield "    model = models.%s" % self.table2model(table_name)
+            yield "    queryset = models.%s.objects.all()" % self.table2model(table_name)
             yield "    serializer_class = serializers.%sSerializer\n" % (
                 self.table2model(table_name),)
             yield 'class %sList(generics.ListCreateAPIView):' % (
