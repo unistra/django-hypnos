@@ -9,3 +9,4 @@ omit =
     setup.py
     hypnos/wsgi.py
     fabfile.py
+    */site-packages/*
