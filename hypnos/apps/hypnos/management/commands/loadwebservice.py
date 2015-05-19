@@ -266,6 +266,8 @@ import ModelPermissionsSerializer"
                    extra_params == {'primary_key': True}:
                     continue
 
+                # Add db_column
+                extra_params['db_column'] = att_name
 
                 # Default BooleanField to false
                 if field_type == 'BooleanField(':
