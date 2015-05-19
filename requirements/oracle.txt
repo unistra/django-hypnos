@@ -1,3 +1,4 @@
+-r common.txt
 --allow-external cx-oracle
 --allow-unverified cx-oracle
 cx-oracle
