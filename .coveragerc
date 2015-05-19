@@ -3,4 +3,9 @@ source =
     hypnos
 
 [report]
-omit = */tests/*
+omit =
+    */tests/*
+    */settings/*
+    setup.py
+    hypnos/wsgi.py
+    fabfile.py
