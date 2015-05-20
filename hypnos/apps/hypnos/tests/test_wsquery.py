@@ -75,4 +75,4 @@ class LoadWebserviceTest(TestCase):
                                    **self.headers)
         response2 = self.client.get('/webservice/djangosite/2.json',
                                    **self.headers)
-        self.assertEqual(response2.data, {'detail': 'Not found'})
+        self.assertEqual(response2.data, {'error': 'Not found'})
