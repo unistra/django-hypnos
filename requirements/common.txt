@@ -5,3 +5,4 @@ djangorestframework-fine-permissions==0.5.1
 six
 chaussette
 psycopg2
+djangorestframework-custom-exceptions

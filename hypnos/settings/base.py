@@ -220,7 +220,8 @@ THIRD_PARTY_APPS = (
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_fine_permissions',
-    'django_filters'
+    'django_filters',
+    'rest_framework_custom_exceptions'
 )
 
 LOCAL_APPS = (
@@ -306,7 +307,8 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework_fine_permissions.permissions.FullDjangoModelPermissions',
-    )
+    ),
+    'EXCEPTION_HANDLER': 'rest_framework_custom_exceptions.exceptions.simple_error_handler'
 }
 
 ########
