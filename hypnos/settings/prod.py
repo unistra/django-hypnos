@@ -77,11 +77,11 @@ SECRET_KEY = '{{ secret_key }}'
 # Static files configuration #
 ##############################
 
-STATIC_URL = '//mystaticurl/'
+STATIC_URL = '/site_media/'
 
 
 #############################
 # Media files configuration #
 #############################
 
-MEDIA_URL = '//mymediaurl/'
+MEDIA_URL = '/files_media/'
