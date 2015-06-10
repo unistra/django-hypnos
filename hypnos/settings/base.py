@@ -221,7 +221,9 @@ THIRD_PARTY_APPS = (
     'rest_framework.authtoken',
     'rest_framework_fine_permissions',
     'django_filters',
-    'rest_framework_custom_exceptions'
+    'rest_framework_custom_exceptions',
+    'rest_framework_custom_paginations',
+    'rest_framework_custom_filters'
 )
 
 LOCAL_APPS = (
@@ -308,7 +310,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework_fine_permissions.permissions.FullDjangoModelPermissions',
     ),
-    'EXCEPTION_HANDLER': 'rest_framework_custom_exceptions.exceptions.simple_error_handler'
+    'EXCEPTION_HANDLER': 'rest_framework_custom_exceptions.exceptions.simple_error_handler',
+    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'rest_framework_custom_paginations.paginations.SporePaginationSerializer'
 }
 
 ########
