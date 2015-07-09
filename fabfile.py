@@ -40,7 +40,7 @@ env.keep_releases = 2  # number of old releases to keep before cleaning
 #                        'instantclient-sqlplus-linux-x86-64-11.2.0.2.0.zip']
 
 # change the package to use to install circus
-env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
+# env.circus_package_name = 'https://github.com/morganbohn/circus/archive/master.zip'
 
 
 @task
