@@ -82,6 +82,7 @@ Génération automatique d'un webservice à partir d'une base de données exista
   * Personnalisation du Webservice et gestionnaire de version : ::
 
     * Spécifier le nouveau dépot : ::
+        
         git remote set-url origin git@github.com:<username>/<newProject>.git
 
     * Supprimer du fichier .gitignore les lignes correspondantes à votre Webservice : ::
