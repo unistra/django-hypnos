@@ -9,7 +9,7 @@ from os.path import join
 from fabtools.python import virtualenv
 import pydiploy
 import pydiploy.django
-import pydiploy.require.database
+import pydiploy.django
 
 env.user = 'root'  # user for ssh
 
@@ -207,14 +207,14 @@ def post_install_frontend():
 @task
 def install_oracle():
     """ Install Oracle client on remote. """
-    execute(pydiploy.require.database.install_oracle_client)
+    execute(pydiploy.django.install_oracle_client)
 
 
 @roles('web')
 @task
 def install_postgres():
     """ Install Postgres on remote. """
-    execute(pydiploy.require.database.install_postgres_server)
+    execute(pydiploy.django.install_postgres_server)
 
 
 @task
