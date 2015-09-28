@@ -303,12 +303,15 @@ LOGGING = {
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework_fine_permissions.filters.FilterPermissionBackend',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework_fine_permissions.permissions.FullDjangoModelPermissions',
+        # OPTIONAL if you use FilterPermissionBackend and GenericAPIView. Check filter permissions for objects.
+        'rest_framework_fine_permissions.permissions.FilterPermission',
     ),
     'EXCEPTION_HANDLER': 'rest_framework_custom_exceptions.exceptions.simple_error_handler',
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'rest_framework_custom_paginations.paginations.SporePaginationSerializer'
