@@ -79,7 +79,7 @@ Génération automatique d'un webservice à partir d'une base de données exista
 
         python manage.py runserver
 
-  * Personnalisation du Webservice et gestionnaire de version : ::
+  * Personnalisation du Webservice et gestionnaire de version :
 
     * Spécifier le nouveau dépot : ::
         
