@@ -16,11 +16,11 @@ env.user = 'root'  # user for ssh
 env.remote_owner = 'django'  # remote server user
 env.remote_group = 'di'  # remote server group
 
-env.application_name = 'hypnos'
+env.application_name = '<change_me>'
 env.root_package_name = 'hypnos'
 
 env.remote_home = '/home/django'
-env.remote_python_version = 2.7
+env.remote_python_version = '2.7'
 env.remote_virtualenv_root = join(env.remote_home, '.virtualenvs')
 env.remote_virtualenv_dir = join(env.remote_virtualenv_root,
                                  env.application_name)
@@ -57,6 +57,7 @@ def test():
     env.server_ssl_on = False
     env.goal = 'test'
     env.socket_port = '8011'
+#    env.socket_host = '127.0.0.1'
     env.static_folder = '/site_media/'
     env.map_settings = {
         'webservice_name': "DATABASES['webservice']['NAME']",
