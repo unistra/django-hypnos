@@ -79,6 +79,20 @@ Génération automatique d'un webservice à partir d'une base de données exista
 
         python manage.py runserver
 
+  * Personnalisation du Webservice et gestionnaire de version : ::
+
+    * Spécifier le nouveau dépot : ::
+        git remote set-url origin git@github.com:<username>/<newProject>.git
+
+    * Supprimer du fichier .gitignore les lignes correspondantes à votre Webservice : ::
+        
+        # generated webservice
+        hypnos/apps/webservice/models.py
+	hypnos/apps/webservice/serializers.py
+        hypnos/apps/webservice/urls.py
+        hypnos/apps/webservice/views.py
+        hypnos/apps/webservice/filters.py
+
 
 * Installation en environnement de test :
 
