@@ -9,6 +9,7 @@ from django.utils.datastructures import SortedDict
 from django.conf import settings
 from os.path import join, exists
 from django.db import connections
+from collections import OrderedDict
 
 
 class Command(NoArgsCommand):
@@ -24,10 +25,7 @@ class Command(NoArgsCommand):
     app_folder = join(join(settings.DJANGO_ROOT, "apps"), "webservice")
 
     def table2model(self, table_name):
-        return table_name.title().replace('_', '')\
-                                 .replace(' ', '')\
-                                 .replace('-', '')\
-
+        return re.sub(r'[^a-zA-Z0-9]', '', table_name.title())
 
     def handle_noargs(self, **options):
         erase = True
@@ -81,8 +79,8 @@ name='%s-all-detail')," % (self.table2model(table_name).lower(),
                            self.table2model(table_name).lower())
             yield "url(r'^%s$', views.%sList.as_view(), \
 name='%s-all-list')," % (self.table2model(table_name).lower(),
-                           self.table2model(table_name),
-                           self.table2model(table_name).lower())
+                         self.table2model(table_name),
+                         self.table2model(table_name).lower())
         yield ')'
         yield "urlpatterns = format_suffix_patterns(urlpatterns, \
 suffix_required=True)"
@@ -215,17 +213,18 @@ import ModelPermissionsSerializer"
                     cursor, table_name)
             except NotImplementedError:
                 indexes = {}
+            try:
+                constraints = connection.introspection.get_constraints(cursor, table_name)
+            except NotImplementedError:
+                constraints = {}
             # Holds column names used in the table so far
-            used_column_names = []
-            for i, row in enumerate(
-                connection.introspection.get_table_description(cursor,
-                                                               table_name)):
-                # Holds Field notes, to be displayed in a Python comment.
-                comment_notes = []
-                # Holds Field parameters such as 'db_column'.
-                extra_params = SortedDict()
+            used_column_names = []  # Holds column names used in the table so far
+            column_to_field_name = {}  # Maps column names to names of model fields
+            for row in connection.introspection.get_table_description(cursor, table_name):
+                comment_notes = [] # Holds Field notes, to be displayed in a Python comment.
+                extra_params = OrderedDict() # Holds Field parameters such as 'db_column'.
                 column_name = row[0]
-                is_relation = i in relations
+                is_relation = column_name in relations
 
                 att_name, params, notes = self.normalize_col_name(
                     column_name, used_column_names, is_relation)
@@ -233,6 +232,7 @@ import ModelPermissionsSerializer"
                 comment_notes.extend(notes)
 
                 used_column_names.append(att_name)
+                column_to_field_name[column_name] = att_name
 
                 # Add primary_key and unique, if necessary.
                 if column_name in indexes:
@@ -242,8 +242,7 @@ import ModelPermissionsSerializer"
                         extra_params['unique'] = True
 
                 if is_relation:
-                    rel_to = "self" if relations[i][
-                        1] == table_name else self.table2model(relations[i][1])
+                    rel_to = "self" if relations[column_name][1] == table_name else self.table2model(relations[column_name][1])
                     if rel_to in known_models:
                         field_type = 'ForeignKey(%s' % rel_to
                     else:
@@ -280,21 +279,20 @@ import ModelPermissionsSerializer"
                         field_type = 'NullBooleanField('
                     else:
                         extra_params['blank'] = True
-                        if not field_type in ('TextField(', 'CharField('):
-                            extra_params['null'] = True
+                        extra_params['null'] = True
 
                 field_desc = '%s = models.%s' % (att_name, field_type)
                 if extra_params:
                     if not field_desc.endswith('('):
                         field_desc += ', '
-                    field_desc += ', '.join([
+                    field_desc += ', '.join(
                         '%s=%s' % (k, strip_prefix(repr(v)))
-                        for k, v in extra_params.items()])
+                        for k, v in extra_params.items())
                 field_desc += ')'
                 if comment_notes:
                     field_desc += ' # ' + ' '.join(comment_notes)
                 yield '    %s' % field_desc
-            for meta_line in self.get_meta(table_name):
+            for meta_line in self.get_meta(table_name, constraints, column_to_field_name):
                 yield meta_line
 
     def normalize_col_name(self, col_name, used_column_names, is_relation):
@@ -399,16 +397,30 @@ in a row.")
 
         return field_type, field_params, field_notes
 
-    def get_meta(self, table_name):
+    def get_meta(self, table_name, constraints, column_to_field_name):
         """
         Return a sequence comprising the lines of code necessary
         to construct the inner Meta class for the model corresponding
         to the given database table name.
         """
-        return ["    class Meta:",
+        unique_together = []
+        for index, params in constraints.items():
+            if params['unique']:
+                columns = params['columns']
+                if len(columns) > 1:
+                    # we do not want to include the u"" or u'' prefix
+                    # so we build the string rather than interpolate the tuple
+                    tup = '(' + ', '.join("'%s'" % column_to_field_name[c] for c in columns) + ')'
+                    unique_together.append(tup)
+
+        meta = ["    class Meta:",
                 "        managed = False",
                 "        db_table = '%s'" % table_name,
                 "        permissions = (('view_%s', 'Can view %s'),)" %
                 (self.table2model(table_name).lower(),
                  self.table2model(table_name).lower()),
                 ""]
+        if unique_together:
+            tup = '(' + ', '.join(unique_together) + ',)'
+            meta += ["        unique_together = %s" % tup]
+        return meta

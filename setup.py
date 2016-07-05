@@ -34,7 +34,7 @@ recursive_requirements('requirements.txt', libraries, dependency_links)
 
 setup(
     name='django-hypnos',
-    version='0.2.2',
+    version='0.3.0',
     packages=find_packages(),
     install_requires=libraries,
     dependency_links=dependency_links,

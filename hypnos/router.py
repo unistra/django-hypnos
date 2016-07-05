@@ -27,8 +27,9 @@ class WebserviceRouter(object):
 
     _alias = 'webservice'
 
-    def allow_syncdb(self, db, model):
-        if is_hypnos_webservice_model(model) and not is_managed(model):
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+        "Synchronizes the webservice model"
+        if app_label == self._alias:
             return db == self._alias
         return None
 

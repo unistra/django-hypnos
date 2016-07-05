@@ -20,7 +20,7 @@ env.application_name = '<change_me>'
 env.root_package_name = 'hypnos'
 
 env.remote_home = '/home/django'
-env.remote_python_version = '2.7'
+env.remote_python_version = '3.4'
 env.remote_virtualenv_root = join(env.remote_home, '.virtualenvs')
 env.remote_virtualenv_dir = join(env.remote_virtualenv_root,
                                  env.application_name)
