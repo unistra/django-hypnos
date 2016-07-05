@@ -1,5 +1,5 @@
 Django>=1.8,<1.9
-djangorestframework>=3.0,<3.1
+djangorestframework==3.3.3
 django-filter==0.13
 djangorestframework-fine-permissions==0.6.0
 six
