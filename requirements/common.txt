@@ -6,5 +6,5 @@ six
 chaussette
 psycopg2
 djangorestframework-custom-exceptions
-djangorestframework-custom-paginations>=1.2.0
+djangorestframework-custom-paginations>=1.2.1
 djangorestframework-custom-filters
