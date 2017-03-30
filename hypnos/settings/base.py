@@ -314,11 +314,10 @@ REST_FRAMEWORK = {
         'rest_framework_fine_permissions.permissions.FilterPermission',
     ),
     'EXCEPTION_HANDLER': 'rest_framework_custom_exceptions.exceptions.simple_error_handler',
-    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'rest_framework_custom_paginations.paginations.SporePaginationSerializer'
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework_custom_paginations.class.SporePagination'
 }
 
 ########
 # Tests#
 ########
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
