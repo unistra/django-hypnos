@@ -55,7 +55,7 @@ Génération automatique d'un webservice à partir d'une base de données exista
         unset DEFAULT_DB_PORT
         unset DEFAULT_DB_HOST
         unset DEFAULT_DB_ENGINE
-       
+
         unset WEBSERVICE_DB_NAME
         unset WEBSERVICE_DB_USER
         unset WEBSERVICE_DB_PASSWORD
@@ -71,9 +71,13 @@ Génération automatique d'un webservice à partir d'une base de données exista
 
         python manage.py loadwebservice
 
-  * Creation de la base de donnée django : ::
+  * Creation de la base de donnée django (django < 1.9): ::
 
         python manage.py syncdb && python manage.py migrate
+
+  * Creation de la base de donnée django (django > 1.9): ::
+
+        python manage.py migrate
 
   * Démarrer l'application : ::
 
@@ -82,11 +86,11 @@ Génération automatique d'un webservice à partir d'une base de données exista
   * Personnalisation du Webservice et gestionnaire de version :
 
     * Spécifier le nouveau dépot : ::
-        
+
         git remote set-url origin git@github.com:<username>/<newProject>.git
 
     * Supprimer du fichier .gitignore les lignes correspondantes à votre Webservice : ::
-        
+
         # generated webservice
         hypnos/apps/webservice/models.py
 	hypnos/apps/webservice/serializers.py
@@ -111,7 +115,7 @@ Génération automatique d'un webservice à partir d'une base de données exista
         pip install pydiploy
         fab tag:master prod pre_install deploy loadwebservice post_install --set <parameters>
 
-* Utilisation : 
+* Utilisation :
 
   * Créer un utilisateur via l'interface d'admin de django, menu "Users"
   * Lui donner les permissions de type "view" sur les objets souhaités
